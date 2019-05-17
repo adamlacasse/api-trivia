@@ -24,18 +24,8 @@ const getSessionToken = () => {
     })
 }
 
-const reshuffleArray = (arr) => {
-    var ctr = arr.length,
-        temp, index;
-
-    while (ctr > 0) {
-        index = Math.floor(Math.random() * ctr);
-        ctr--;
-        temp = arr[ctr];
-        arr[ctr] = arr[index];
-        arr[index] = temp;
-    }
-    return arr;
+const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
 }
 
 const loadGame = () => {
@@ -46,10 +36,9 @@ const loadGame = () => {
         responseArray = response.results
         console.log(responseArray[currentQuestion])
         answers = responseArray[currentQuestion].incorrect_answers
-        answers.push(responseArray[currentQuestion].correct_answer)
         if (responseArray[currentQuestion].type !== 'boolean') {
-            reshuffleArray(answers)
-        }
+            answers.splice(getRandomInt(answers.length), 0, responseArray[currentQuestion].correct_answer)
+        } else { answers = ['True', 'False'] }
         $("#question").html(responseArray[currentQuestion].question)
         answers.forEach(e => {
             $("#answers").append(`<button>${e}</button>`)
