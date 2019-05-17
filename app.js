@@ -1,4 +1,4 @@
-const queryURL = `https://opentdb.com/api.php?amount=2`;
+const queryURL = `https://opentdb.com/api.php?amount=5`;
 // example with query params: https://opentdb.com/api.php?amount=5&category=11&difficulty=easy
 const sessionToken = ''
 
