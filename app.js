@@ -1,4 +1,4 @@
-const queryURL = `https://opentdb.com/api.php?amount=10`;
+const queryURL = `https://opentdb.com/api.php?amount=2`;
 // example with query params: https://opentdb.com/api.php?amount=5&category=11&difficulty=easy
 const sessionToken = ''
 
@@ -52,6 +52,9 @@ const loadQuestion = () => {
     $("#question").empty();
     $("#answers").empty();
 
+    $("#wins").text(`Correct Answers: ${numberCorrect}`);
+    $("#losses").text(`Incorrect Answers: ${numberIncorrect}`);
+
     console.log(responseArray[currentQuestion])
     answers = responseArray[currentQuestion].incorrect_answers
     if (responseArray[currentQuestion].type !== 'boolean') {
@@ -65,6 +68,14 @@ const loadQuestion = () => {
     });
 }
 
+const afterAnswer = () => {
+    if (currentQuestion < responseArray.length - 1) {
+        $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
+    } else {
+        console.log('THE END')
+    }
+}
+
 $(document).on("click", ".answer", function () {
     if (!questionAnswered) {
         clearInterval(timer)
@@ -72,11 +83,11 @@ $(document).on("click", ".answer", function () {
         if ($(this).text() === responseArray[currentQuestion].correct_answer) {
             console.log('correct!')
             numberCorrect++;
-            $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
+            afterAnswer()
         } else {
             console.log('incorrect :-(')
             numberIncorrect++;
-            $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
+            afterAnswer()
         }
         $("#wins").text(`Correct Answers: ${numberCorrect}`);
         $("#losses").text(`Incorrect Answers: ${numberIncorrect}`);
