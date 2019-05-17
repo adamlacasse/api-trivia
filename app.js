@@ -5,6 +5,9 @@ const sessionToken = ''
 let responseArray = [];
 let currentQuestion = 0;
 let answers = [];
+let numberCorrect = 0;
+let numberIncorrect = 0;
+let numberTimedOut = 0;
 
 const getCategories = () => {
     $.ajax({
@@ -28,28 +31,45 @@ const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-const loadGame = () => {
+const getGameData = () => {
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
         responseArray = response.results
-        console.log(responseArray[currentQuestion])
-        answers = responseArray[currentQuestion].incorrect_answers
-        if (responseArray[currentQuestion].type !== 'boolean') {
-            answers.splice(getRandomInt(answers.length), 0, responseArray[currentQuestion].correct_answer)
-        } else { answers = ['True', 'False'] }
-        $("#question").html(responseArray[currentQuestion].question)
-        answers.forEach(e => {
-            $("#answers").append(`<button class="answer">${e}</button>`)
-        });
+        loadQuestion()
     });
 }
 
-$(document).on("click", ".answer", function(){
+const loadQuestion = () => {
+    $("#question").empty();
+    $("#answers").empty();
+    console.log(responseArray[currentQuestion])
+    answers = responseArray[currentQuestion].incorrect_answers
+    if (responseArray[currentQuestion].type !== 'boolean') {
+        answers.splice(getRandomInt(answers.length), 0, responseArray[currentQuestion].correct_answer)
+    } else {
+        answers = ['True', 'False']
+    }
+    $("#question").html(responseArray[currentQuestion].question)
+    answers.forEach(e => {
+        $("#answers").append(`<button class="answer">${e}</button>`)
+    });
+}
+
+$(document).on("click", ".answer", function () {
     if ($(this).text() === responseArray[currentQuestion].correct_answer) {
         console.log('correct!')
-    } else { console.log('incorrect :-(') }
+        $("#answers").append(`<button id="next">Next Question</button>`);
+    } else {
+        console.log('incorrect :-(')
+        $("#answers").append(`<button id="next">Next Question</button>`);
+    }
 })
 
-loadGame()
+$(document).on("click", "#next", function(){
+    currentQuestion++
+    loadQuestion()
+})
+
+getGameData()
