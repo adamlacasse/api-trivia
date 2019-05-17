@@ -41,9 +41,15 @@ const loadGame = () => {
         } else { answers = ['True', 'False'] }
         $("#question").html(responseArray[currentQuestion].question)
         answers.forEach(e => {
-            $("#answers").append(`<button>${e}</button>`)
+            $("#answers").append(`<button class="answer">${e}</button>`)
         });
     });
 }
+
+$(document).on("click", ".answer", function(){
+    if ($(this).text() === responseArray[currentQuestion].correct_answer) {
+        console.log('correct!')
+    } else { console.log('incorrect :-(') }
+})
 
 loadGame()
