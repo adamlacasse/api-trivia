@@ -47,7 +47,7 @@ const getGameData = () => {
 const loadQuestion = () => {
     timer = setInterval(function () {
         --countdown
-        $("#timer").text(countdown);
+        $("#timer").text(`Timer: ${countdown}`);
     }, 1000)
     $("#question").empty();
     $("#answers").empty();
@@ -88,7 +88,7 @@ $(document).on("click", "#next", function () {
     questionAnswered = false;
     currentQuestion++
     loadQuestion()
-    $("#timer").text(countdown);
+    $("#timer").text(`Timer: ${countdown}`);
 })
 
 getGameData()
