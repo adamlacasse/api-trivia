@@ -8,6 +8,8 @@ let answers = [];
 let numberCorrect = 0;
 let numberIncorrect = 0;
 let numberTimedOut = 0;
+let timer;
+let countdown = 20;
 
 const getCategories = () => {
     $.ajax({
@@ -42,6 +44,10 @@ const getGameData = () => {
 }
 
 const loadQuestion = () => {
+    timer = setInterval(function(){
+        --countdown
+        console.log(countdown)
+    }, 1000)
     $("#question").empty();
     $("#answers").empty();
     console.log(responseArray[currentQuestion])
@@ -58,11 +64,15 @@ const loadQuestion = () => {
 }
 
 $(document).on("click", ".answer", function () {
+    clearInterval(timer)
+    countdown = 20;
     if ($(this).text() === responseArray[currentQuestion].correct_answer) {
         console.log('correct!')
+        numberCorrect++;
         $("#answers").append(`<button id="next">Next Question</button>`);
     } else {
         console.log('incorrect :-(')
+        numberIncorrect++;
         $("#answers").append(`<button id="next">Next Question</button>`);
     }
 })
