@@ -61,7 +61,7 @@ const loadQuestion = () => {
     }
     $("#question").html(responseArray[currentQuestion].question)
     answers.forEach(e => {
-        $("#answers").append(`<button class="answer">${e}</button>`)
+        $("#answers").append(`<button class="btn btn-dark answer">${e}</button>`)
     });
 }
 
@@ -72,11 +72,11 @@ $(document).on("click", ".answer", function () {
         if ($(this).text() === responseArray[currentQuestion].correct_answer) {
             console.log('correct!')
             numberCorrect++;
-            $("#answers").append(`<button id="next">Next Question</button>`);
+            $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
         } else {
             console.log('incorrect :-(')
             numberIncorrect++;
-            $("#answers").append(`<button id="next">Next Question</button>`);
+            $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
         }
         $("#wins").text(`Correct Answers: ${numberCorrect}`);
         $("#losses").text(`Incorrect Answers: ${numberIncorrect}`);
