@@ -73,6 +73,7 @@ const afterAnswer = () => {
         $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
     } else {
         console.log('THE END')
+        $("#message").html(`<h2>The End. Thanks for Playing</h2>`)
     }
 }
 
@@ -84,6 +85,7 @@ $(document).on("click", ".answer", function () {
             console.log('correct!')
             numberCorrect++;
             afterAnswer()
+            $("#response").html(`<h3>That's correct!</h3>`)
         } else {
             console.log('incorrect :-(')
             numberIncorrect++;
@@ -100,6 +102,7 @@ $(document).on("click", "#next", function () {
     currentQuestion++
     loadQuestion()
     $("#timer").text(`Timer: ${countdown}`);
+    $("#response").empty();
 })
 
 getGameData()
