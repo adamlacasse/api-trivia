@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+}
+
+.modal {
+    text-align: center;
+}
+
+.modal img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

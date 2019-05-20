@@ -1,5 +1,10 @@
+/* 
+Only 1 Category can be requested per API Call. To get questions from any category, don't specify a category.
+A Maximum of 50 Questions can be retrieved per call.
+example with query params: https://opentdb.com/api.php?amount=5&category=11&difficulty=easy
+*/
+
 const queryURL = `https://opentdb.com/api.php?amount=5`;
-// example with query params: https://opentdb.com/api.php?amount=5&category=11&difficulty=easy
 const sessionToken = ''
 
 let responseArray = [];
