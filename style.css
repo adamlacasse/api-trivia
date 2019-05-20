@@ -15,3 +15,7 @@ body {
     height: auto;
     object-fit: cover;
 }
+
+label {
+    text-align: left;
+}
