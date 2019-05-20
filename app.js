@@ -70,7 +70,7 @@ const loadQuestion = () => {
 
 const afterAnswer = () => {
     if (currentQuestion < responseArray.length - 1) {
-        $("#answers").append(`<button id="next" class="btn btn-success">Next Question</button>`);
+        return true;
     } else {
         console.log('THE END')
         $("#message").html(`<h2>The End. Thanks for Playing</h2>`)
@@ -85,11 +85,13 @@ $(document).on("click", ".answer", function () {
             console.log('correct!')
             numberCorrect++;
             afterAnswer()
-            $("#response").html(`<h3>That's correct!</h3>`)
+            // $("#response")
+            $("#resultModalLabel").html(`<h3>That's correct!</h3>`)
         } else {
             console.log('incorrect :-(')
             numberIncorrect++;
             afterAnswer()
+            $("#resultModalLabel").html(`<h3>Nope</h3>`)
         }
         $("#wins").text(`Correct Answers: ${numberCorrect}`);
         $("#losses").text(`Incorrect Answers: ${numberIncorrect}`);
@@ -97,7 +99,8 @@ $(document).on("click", ".answer", function () {
     }
 })
 
-$(document).on("click", "#next", function () {
+$(document).on("click", ".close-modal", function () {
+    console.log('clicked')
     questionAnswered = false;
     currentQuestion++
     loadQuestion()
