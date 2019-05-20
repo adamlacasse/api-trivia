@@ -44,7 +44,9 @@ const getGameData = () => {
     });
 }
 
+
 const loadQuestion = () => {
+    $("#timer").text(`Timer: ${countdown}`);
     timer = setInterval(function () {
         --countdown
         $("#timer").text(`Timer: ${countdown}`);
@@ -70,9 +72,12 @@ const loadQuestion = () => {
 
 const afterAnswer = () => {
     if (currentQuestion < responseArray.length - 1) {
-        return true;
+        questionAnswered = false;
+        currentQuestion++
+        loadQuestion()
+        $("#timer").text(`Timer: ${countdown}`);
+        $("#response").empty();
     } else {
-        console.log('THE END')
         $("#message").html(`<h2>The End. Thanks for Playing</h2>`)
     }
 }
@@ -85,13 +90,14 @@ $(document).on("click", ".answer", function () {
             console.log('correct!')
             numberCorrect++;
             afterAnswer()
-            // $("#response")
             $("#resultModalLabel").html(`<h3>That's correct!</h3>`)
+            $("#modal-body-div").html(`<img src="https://thumbs.gfycat.com/VariablePoliticalBurro-small.gif" >`)
         } else {
             console.log('incorrect :-(')
             numberIncorrect++;
             afterAnswer()
             $("#resultModalLabel").html(`<h3>Nope</h3>`)
+            $("#modal-body-div").html(`<img src="https://cdn.designbyhumans.com/i/S0q2MgADnZTMIquCovyU0uSSGP2U1OLM9LwY_VJDYwNjA0OgZK6VmalBBRDrJFkZ6hQAcWpFiVVWQToA.pr676420-2-3541328.jpg" >`)
         }
         $("#wins").text(`Correct Answers: ${numberCorrect}`);
         $("#losses").text(`Incorrect Answers: ${numberIncorrect}`);
@@ -99,13 +105,11 @@ $(document).on("click", ".answer", function () {
     }
 })
 
-$(document).on("click", ".close-modal", function () {
-    console.log('clicked')
-    questionAnswered = false;
-    currentQuestion++
+$('#resultModal').on('hidden.bs.modal', function (e) {
+    console.log(`here's the element from hidden.bs.modal...`)
+    console.log(e)
     loadQuestion()
-    $("#timer").text(`Timer: ${countdown}`);
-    $("#response").empty();
 })
+
 
 getGameData()
