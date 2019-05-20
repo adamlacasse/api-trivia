@@ -64,7 +64,7 @@ const loadQuestion = () => {
     }
     $("#question").html(responseArray[currentQuestion].question)
     answers.forEach(e => {
-        $("#answers").append(`<button class="btn btn-dark answer">${e}</button>`)
+        $("#answers").append(`<button class="btn btn-dark answer" data-toggle="modal" data-target="#resultModal">${e}</button>`)
     });
 }
 
