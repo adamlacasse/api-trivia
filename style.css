@@ -2,6 +2,10 @@ body {
     text-align: center;
 }
 
+.jumbotron {
+    font-size: 30px;
+}
+
 .modal {
     text-align: center;
 }
